@@ -9,8 +9,14 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      # Prepare source code
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Initialize submodules
+        run: |
+          git submodule update --init
+
+      # Prepare environment
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -20,7 +26,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
-      - name: Build and Push
+
+      # Build and publish
+      - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
