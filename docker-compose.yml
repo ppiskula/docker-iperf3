@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  iperf3-server:
+    container_name: iperf3-server
+    image: ppiskula/iperf3-server:latest
+    build: .
+    network_mode: host
+    restart: unless-stopped
