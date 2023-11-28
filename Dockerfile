@@ -14,6 +14,9 @@ make install;
 
 FROM alpine:3.18
 
+RUN apk update; \
+apk upgrade --no-cache;
+
 COPY --from=build /dist /usr/local
 
 CMD ["iperf3", "-s"]
